@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/farms",
+            "lambdaFunction": "farmsLambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/farms"
+        }
+    ],
+    "resourceName": "farmsApi",
+    "apiName": "farmsApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "farmsLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-awscognito-dev-103854-authRole",
+        "unAuthRoleName": "amplify-awscognito-dev-103854-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "farmsLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+  "storage": {
+    "farmsData": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "farmsLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "farmsData",
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "attributeEnvMap": {
+            "Name": "TABLE_NAME",
+            "Arn": "TABLE_ARN"
+          }
+        }
+      ]
+    }
+  },
+  "auth": {
+    "cognitob288b977": {
+      "service": "Cognito",
+      "serviceType": "managed",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "api": {
+    "farmsApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "farmsLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
+  }
+}
